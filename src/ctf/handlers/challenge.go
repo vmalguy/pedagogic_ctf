@@ -148,6 +148,8 @@ func ChallengeValidate(w http.ResponseWriter, r *http.Request) {
 
 	registeredUser, user, err := IsUserAuthenticated(w, r)
 	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		utils.SendResponseJSON(w, utils.Message{"Your session seems expired, please login again"})
 		return
 	} else if !registeredUser {
 		w.WriteHeader(http.StatusOK)
@@ -314,6 +316,8 @@ func ChallengeCorrect(w http.ResponseWriter, r *http.Request) {
 
 	registeredUser, user, err := IsUserAuthenticated(w, r)
 	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		utils.SendResponseJSON(w, utils.Message{"Your session seems expired, please login again"})
 		return
 	} else if !registeredUser {
 		w.WriteHeader(http.StatusOK)
